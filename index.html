@@ -48,7 +48,21 @@
           }
         }, 2000);
 
+        // Start game
         main();
+
+        // Automatically override VSync after game starts
+        setTimeout(() => {
+          if (window.EaglercraftX && window.EaglercraftX.mainLoop) {
+            let oldLoop = window.EaglercraftX.mainLoop;
+            function noVsyncLoop() {
+              oldLoop();
+              setTimeout(noVsyncLoop, 0); // run as fast as possible
+            }
+            noVsyncLoop();
+            console.log("⚡ VSync override enabled: running without requestAnimationFrame");
+          }
+        }, 3000);
       }
     });
   </script>
