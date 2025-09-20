@@ -39,11 +39,21 @@
           ]
         };
 
-        // After main() loads, force-disable expensive effects
+        // After main() loads, force-disable expensive effects & set visuals low
         let patchInterval = setInterval(() => {
           if (window.EaglercraftX && window.EaglercraftX.settings) {
             window.EaglercraftX.settings.useFXAA = false;       // disable anti-alias
             window.EaglercraftX.settings.dynamicLights = false; // disable dynamic lights
+
+            // Extra visual optimizations
+            window.EaglercraftX.settings.renderDistance = 6;
+            window.EaglercraftX.settings.smoothLighting = false;
+            window.EaglercraftX.settings.clouds = false;
+            window.EaglercraftX.settings.particles = "minimal";
+            window.EaglercraftX.settings.graphics = "fast";
+            window.EaglercraftX.settings.entityShadows = false;
+            window.EaglercraftX.settings.mipmapLevels = 0;
+
             clearInterval(patchInterval);
           }
         }, 2000);
@@ -63,6 +73,17 @@
             console.log("⚡ VSync override enabled: running without requestAnimationFrame");
           }
         }, 3000);
+
+        // Async chunk loading patch
+        setTimeout(() => {
+          if (window.EaglercraftX && window.EaglercraftX.chunkBuilder) {
+            let oldBuild = window.EaglercraftX.chunkBuilder.buildNext;
+            window.EaglercraftX.chunkBuilder.buildNext = function() {
+              setTimeout(() => oldBuild.call(window.EaglercraftX.chunkBuilder), 1);
+            };
+            console.log("⚡ Chunk builder patched: async mode enabled");
+          }
+        }, 5000);
       }
     });
   </script>
