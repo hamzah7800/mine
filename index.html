@@ -2,10 +2,10 @@
 <html style="width:100%;height:100%;background-color:black;">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="description" content="EaglyMC 1.20 Optimized" />
   <meta name="keywords" content="eaglercraft, eaglercraftx, minecraft, 1.8, 1.8.8" />
-  <title>EaglyMC 1.20 (Optimized)</title>
+  <title>HZ EaglyMC</title>
   <link type="image/png" rel="shortcut icon" href="favicon.png" />
   <script type="text/javascript" src="classes.js" defer></script>
 
@@ -28,6 +28,7 @@
           maxParticles: 500,             // reduce particle overhead
           disableInstancedRendering: true, // safer for Safari WebGL
           smoothGui: false,              // disable GUI animations
+          renderScale: 0.5,              // render at 50% resolution for FPS boost
           servers: [
             { addr: "ws://localhost:8081/", name: "Local test server" }
           ],
